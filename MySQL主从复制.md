@@ -1,11 +1,11 @@
 MySQL 主从复制
 --------------------
 
-## 设备
+### 设备
 
 可以使用虚拟机进行测试：需要两个装有MySQL环境的虚拟机，必须是网络互通。
 
-## 配置文件修改
+### 配置文件修改
 
 * Master: 
 
@@ -25,29 +25,31 @@ MySQL 主从复制
     server-id=2 #slave的标示
 
 主从服务器都需要进行重启，可以通过以下命令查看mysql状态:
-    
-    show master status\G;
-    show slave status\G;
+
+```sql    
+show master status\G;
+show slave status\G;
+```
 
 ## MySQL命令
 
 Master 新建同步账号
 
 ```sql
-    grant replication slave on *.* to '帐号' @ '从服务器IP' identified by '密码';  
+grant replication slave on *.* to '帐号' @ '从服务器IP' identified by '密码';  
 ```
 
 Slave 设置同步操作
 
 ```sql
-    change master to  
-    master_host = 'Master服务器IP',  
-    master_user = '帐号',  
-    master_password = '密码',  
-    master_log_file = '同步Log文件名',  
-    master_log_pos = '同步Log文件位置';  
-    
-    slave start;  
+change master to  
+master_host = 'Master服务器IP',  
+master_user = '帐号',  
+master_password = '密码',  
+master_log_file = '同步Log文件名',  
+master_log_pos = '同步Log文件位置';  
+
+slave start;  
 ```
 
-[http://blog.chinaunix.net/uid-26610882-id-4083396.html](文章)
+[参考文章](http://blog.chinaunix.net/uid-26610882-id-4083396.html)
