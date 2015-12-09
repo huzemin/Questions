@@ -37,6 +37,7 @@ Master 新建同步账号
 
 ```sql
 grant replication slave on *.* to '帐号' @ '从服务器IP' identified by '密码';  
+flush privileges; 
 ```
 
 Slave 设置同步操作
