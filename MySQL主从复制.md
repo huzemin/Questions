@@ -12,11 +12,13 @@ MySQL 主从复制
 修改/etc/mysql/my.cnf:在`[mysqld]`下添加以下配置
 官方说明：为了使用事务的InnoDB在复制中最大的持久性和一致性，你应该指定innodb_flush_log_at_trx_commit=1,sync_binlog=1选项。
 
+```sql
     log-bin
     server-id=1  # master 标识
     binlog-do-db=xx  # 同步数据库
     innodb_flush_log_at_trx_commit=1
     sync_binlog=1
+```
 
 * Slave: 
 
@@ -31,16 +33,16 @@ show master status\G;
 show slave status\G;
 ```
 
-## MySQL命令
+### MySQL命令
 
-Master 新建同步账号
+* Master 新建同步账号
 
 ```sql
 grant replication slave on *.* to '帐号' @ '从服务器IP' identified by '密码';  
 flush privileges; 
 ```
 
-Slave 设置同步操作
+* Slave 设置同步操作
 
 ```sql
 change master to  
