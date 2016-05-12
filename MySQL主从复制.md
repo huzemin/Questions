@@ -24,8 +24,10 @@ MySQL 主从复制
 
 修改/etc/mysql/my.cnf: 在`[mysqld]`下添加以下配置:
     
-    server-id=2 #slave的标示
-
+    server-id=2 
+    # log-bin 
+    # binlog-do-db=hardware_service
+    replicate-do-db=hardware_service
 主从服务器都需要进行重启，可以通过以下命令查看mysql状态:
 
 ```sql    
@@ -45,14 +47,27 @@ flush privileges;
 * Slave 设置同步操作
 
 ```sql
+stop slave;
+
 change master to  
 master_host = 'Master服务器IP',  
 master_user = '帐号',  
 master_password = '密码',  
 master_log_file = '同步Log文件名',  
-master_log_pos = '同步Log文件位置';  
+master_log_pos = 同步Log文件位置;  
+
+----------------------
+change master to  
+master_host = '192.168.26.85',  
+master_user = 'hzm',  
+master_password = '123456',  
+master_log_file = 'GIH-D-8090-bin.000011',  
+master_log_pos = 120;
+-----------------------
 
 slave start;  
 ```
+
+使用reset slave 清除master信息
 
 [参考文章](http://blog.chinaunix.net/uid-26610882-id-4083396.html)
